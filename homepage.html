@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    /* Add or update these styles in your existing CSS */
+   body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url(https://img.hotimg.com/166e880a8887d548e.jpeg);
+    background-size: 1522px 700px;
+    background-position: unset;
+    background-repeat: no-repeat;
+    background-color: black;
+    z-index: -1;
+    position: relative;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 100vh;
+  background-color: rgb(12 12 12 / 70%);
+  transition: width 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+}
+
+header.expanded {
+  width: 200px;
+}
+
+#toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+#toggle-button::before,
+#toggle-button::after {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+#toggle-button::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+#toggle-button::after {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+header.expanded #toggle-button::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+header.expanded #toggle-button::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#nav-menu {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 10px;
+  transition: opacity 0.3s, transform 0.3s;
+  position: absolute;
+  top: 22%;
+  left: 0;
+  width: 180px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  gap: 24px;
+  opacity: 0.7;
+}
+
+header.expanded #nav-menu {
+  display: flex;
+}
+
+#nav-menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+#nav-menu a:hover {
+  background-color: #555;
+}
+
+#chef-name {
+     max-width: 320px;
+    transform: rotate(45deg);
+    transition: transform 0.3s, top 0.3s, left 0.3s, width 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(271deg);
+}
+
+header.expanded #chef-name {
+  transform: translate(-50%, 0) rotate(0deg);
+    top: 45px;
+    left: 50%;
+    max-width: 215px;
+}
+
+header::after {
+  content: '';
+  width: 2px;
+  height: 100%;
+  background-color: gold;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+main {
+  margin-left: 110px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+header.expanded ~ main {
+  margin-left: 200px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+.extended-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding: 10px;
+  border-top: 1px solid gold;
+  width: 100%;
+}
+
+.support-info {
+  color: white;
+  display: none;
+}
+
+header.expanded .support-info {
+  display: block;
+  position: relative;
+  top: 570px;
+  font-size: 14px;
+}
+
+.support-text {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  display: inline;
+}
+
+.phone-number {
+  font-size: 0.8em;
+  color: gold;
+  text-decoration: underline;
+  display: inline;
+}
+
+.option {
+  display: none;
+  color: white;
+}
+
+header.expanded .option {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+  filter: invert(1);
+}
+
+.extended-options {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  gap: 40px;
+}
+
+    .swiper-container {
+    width: 64%;
+    height: 228px;
+    position: relative;
+    margin-top: 20px;
+    left: 100px;
+}
+
+    .swiper-slide {
+       position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  border-radius: 50%;
+  border: 3px solid #D29A5A;
+}
+
+    .swiper-wrapper {
+         display: flex;
+    align-items: center;
+    position: relative;
+    /* left: 50px; */
+   /* margin-left: 200px;
+    margin-right: 200px;*/
+}
+
+   
+.swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.swiper-button-next{
+  position: absolute;
+    top: 57%;
+    transform: translateY(-50%);
+    width: 49px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    right: -300px;
+     z-index: 100;
+}
+.swiper-button-prev {
+  position: absolute;
+  top: 57%;
+  transform: translateY(-50%);
+ width: 49px;
+    height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+   z-index: 100;
+   left: -100px;
+}
+
+    .swiper-button-next::after{
+      font-size: 20px;
+      color: white;
+    }
+    .swiper-button-prev::after {
+      font-size: 20px;
+      color: white;
+    }
+.product-info {
+    position: absolute;
+    bottom: -120px;
+    left: 0;
+    right: 0;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    padding: 10px;
+    text-align: center;
+    /* border-radius: 71%; */
+    color: white;
+}
+    .button-container {
+      position: absolute;
+      bottom: 120px;
+      left: 55%;
+      transform: translateX(-50%);
+      padding: 13px;
+      border: 2px solid white;
+      width: 240px;
+      text-align: center;
+    }
+
+    .meet-chef-btn {
+      color: white;
+      font-size: 18px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .new-image {
+      width: 16%;
+      height: 231px;
+      display: block;
+      margin-top: 617px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .new-heading {
+      color: #b18a41;
+      text-align: left;
+/*      text-decoration: underline;*/
+      margin: 20px 0 10px 0;
+      position: relative;
+      top: -80px;
+          font-family: poppins;
+    }
+
+    .new-text {
+      color: white;
+      text-align: left;
+      margin-bottom: 20px;
+      position: relative;
+      top: -70px;
+       font-family: poppins;
+    }
+
+    .promo-section {
+          margin-top: 174px;
+    padding: 20px;
+    background-image: url(https://b.rgbimg.com/users/x/xy/xymonau/600/omLji0e.jpg);
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    border-radius: 10px;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 320px;
+}
+
+    .promo-title {
+      font-size: 40px;
+    color: black;
+    /* margin-bottom: 205px; */
+    font-family: poppins;
+  }
+
+   .shop-now-btn {
+        font-size: 25px;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    border: 2px solid black;
+    width: 270px;
+    height: 25px;
+    text-align: center;
+}
+  .shop-now-btn1 {
+ font-size: 25px;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    border: 2px solid white;
+    width: 215px;
+    height: 26px;
+    text-align: center;
+    position: relative;
+    left: 44%;
+    top: 500px;
+}
+    .promo-desc{
+         font-size: 24px;
+    color: black;
+    margin-top: 72px;
+    font-family: poppins;
+        margin-bottom: 65px;
+}
+
+
+.banner-section {
+    margin-top: 50px;
+    padding: 20px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.pixabay.com/photo/2018/04/02/18/56/banner-3284786_640.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    border-radius: 10px;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 320px;
+    color: white; /* Optional: If you want the text color to be white */
+}
+
+
+        .banner-title {
+                font-size: 40px;
+    color: white;
+    font-family: Poppins, sans-serif;
+    text-align: left;
+    margin-top: 108px;
+}
+        .banner-desc {
+               font-size: 15px;
+    color: white;
+    margin-top: 27px;
+    font-family: Poppins, sans-serif;
+    margin-bottom: 65px;
+    text-align: left;
+}
+   .email-signup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .email-signup input[type="email"] {
+          padding: 10px;
+    font-size: 16px;
+    border: 3px solid white;
+    border-radius: 5px;
+    width: 250px;
+    position: relative;
+    top: -34px;
+    text-align: left;
+    justify-content: left;
+    right: 18%;
+    width: 40%;
+    opacity: 0.6;
+}
+
+        .email-signup button {
+            padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #D29A5A;
+    color: black;
+    cursor: pointer;
+    border: 2px solid black;
+    position: relative;
+    top: -34px;
+    right: 217px;
+    width: 20%;
+}
+
+        .email-signup button:hover {
+            background-color: darkgoldenrod;
+        }
+  .footer {
+        display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #000000;
+    /* width: 71%; */
+    font-size: 20px;
+    gap: 36px;
+}
+
+.footer div {
+    text-align: center;
+    margin: 10px;
+}
+
+.footer div p {
+    margin: 5px 0;
+    color: #d29a5a;
+}
+
+.footer div span {
+    color: #ffffff;
+}
+
+.signature-container {
+    text-align: center;
+    width: 100%;
+}
+
+.footer .signature {
+    margin-top: 20px;
+    border-top: 10px solid #d29a5a;
+    padding-top: 10px;
+    /* width: 73%; */
+    margin-left: 90px;
+}
+.footer .signature img {
+    max-width: 26%;
+    height: auto;
+    display: inline-block;
+    /* margin: 5px 0; */
+    margin-bottom: -70px;
+    margin-top: -40px;
+}
+.footer-line {
+   width: 91%;
+    margin-top: 20px;
+    margin-left: 102px;
+  }
+  .footer-line1 {
+  width: 58%;
+    margin-top: 20px;
+    margin-left: 0px;
+     border-top: 5px solid white;
+}
+.footer-line2 {
+      width: 8%;
+    margin-top: 20px;
+    margin-left: 604px;
+    border-top: 5px solid Black;
+}
+.footer-line3 {
+      
+     width: 30%;
+    margin-top: 6px;
+    margin-left: 0px;
+    border-top: 3px solid #d29a5a;
+}
+  </style>
+</head>
+<body>
+<header id="header">
+  <div id="toggle-button"></div>
+  <img id="chef-name" src="https://cdn.worldvectorlogo.com/logos/chef-mate.svg" alt="Chef Matt Signature">
+  <nav id="nav-menu">
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#meet-chef-matt">Meet Chef Matt</a>
+    <a href="#faq">FAQ</a>
+    <a href="#connect-with-us">Connect with Us</a>
+  </nav>
+
+
+
+  <div class="support-info">
+    <p class="support-text">Text Support 24/7</p>
+    <p class="phone-number">070-7782-9137</p>
+  </div> 
+  <div class="extended-header-content">
+    <div class="extended-options">
+      <div class="option">
+        <img src="https://img.icons8.com/?size=100&id=21823&format=png" alt="Cart Icon" class="icon">
+        <span>Cart</span>
+      </div>
+      <div class="option">
+        <img src="https://img.icons8.com/?size=100&id=87&format=png" alt="Wishlist Icon" class="icon">
+        <span>Wishlist</span>
+      </div>
+    </div>
+  </div>
+</header>
+    <a href="#" class="shop-now-btn1">Shop Now</a>
+<main>
+  <img src="https://img.hotimg.com/0832345180f545abf5abe8c3f88a760f.png" class="new-image" />
+  <h2 class="new-heading">CHEF MATT PRODUCTS <hr class="footer-line3"></h2> 
+  <p class="new-text">Shop Gourmet Chef Quality products from the Chef Matt brand. <br>
+Chef it yourself and Thank us later.</p>
+  
+  <!-- Swiper -->
+ <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" style="background-image:url('https://dutchmansgold.com/cdn/shop/products/17851-DutchmansGold-UpdateCinnamon330gMockupWeb_800x.jpg?v=1620915222')">
+        <div class="product-info">
+          <h3 style="color: #D29A5A;">CINNAMON HONEY</h3>
+          <p>$12.00   $9.00</p>
+          
+        </div>
+      </div>
+    <div class="swiper-slide" style="background-image:url('https://www.buyindusvalley.in/cdn/shop/files/Coconut-Oil-175ml.jpg?v=1706165553')">
+        <div class="product-info">
+          <h3 style="color: #D29A5A;">COCONUT OIL</h3>
+          <p>$20.00   $15.00</p>
+          
+        </div>
+      </div>
+       <div class="swiper-slide" style="background-image:url('https://www.mangoherbs.com/wp-content/uploads/2021/10/1-1.jpg')">
+        <div class="product-info">
+          <h3  style="color: #D29A5A;" >MANGO HONEY</h3>
+          <p>$9.00   $6.00</p>
+         
+        </div>
+      </div> <div class="swiper-slide" style="background-image:url('https://millcreekapiary.com/cdn/shop/products/image_c8429d72-aff6-4dac-8390-9d4fa9b2de8e.jpg?v=1673443197')">
+        <div class="product-info">
+        <h3 style="color: #D29A5A;">HONEY HABANERO</h3>
+          <p>$12.00   $9.00</p>
+          
+        </div>
+     
+      </div>
+     
+    </div>
+    <!-- Add Pagination --> 
+    
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+ <div class="promo-section">
+      <div class="promo-title">ONLINE ONLY</div>    <hr class="footer-line2">
+        <div class="promo-desc">GET 20% OFF YOUR ORDER OF $50 OR MORE<br>
+        Use code <b>“Chef20”</div><b>
+      <a href="menu-open.html" class="shop-now-btn">Shop Now</a>
+    </div>
+
+
+     <div class="banner-section">
+        <div class="banner-title">SIGN UP FOR SPECIAL PROMOTIONS</div>
+            <hr class="footer-line1">
+        <div class="banner-desc">Get exclusive deals you won’t find anywhere else straight to your inbox!</div>
+        <div class="email-signup">
+            <input type="email" placeholder="Enter your email">
+            <button type="button">Subscribe</button>
+        </div>
+    </div>
+</main>
+  <footer class="footer">
+    <div>
+        <p>FREE SHIPPING WORLDWIDE</p>
+        <span>Guaranteed Delivery</span>
+    </div>
+    <div>
+        <p>24/7 CUSTOMER SERVICE</p>
+        <span>Text Us 24/7 at 070-7782-9137</span>
+    </div>
+    <div>
+        <p>QUALITY GUARANTEE!</p>
+        <span>Send Within 30 Days</span>
+    </div>
+   <div class="signature-container">
+    <div class="signature">
+        <img src="https://cdn.worldvectorlogo.com/logos/chef-mate.svg" alt="Chef Matt Signature">
+    </div>
+</div>
+
+
+    </div>
+    <hr class="footer-line">
+</footer>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const header = document.getElementById('header');
+  const toggleButton = document.getElementById('toggle-button');
+  const navMenu = document.getElementById('nav-menu');
+  const chefName = document.getElementById('chef-name');
+
+  toggleButton.addEventListener('click', () => {
+    header.classList.toggle('expanded');
+  });
+
+  // Wrap Swiper initialization in a try-catch block for error handling
+  try {
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      slidesPerView: 3.3,
+      slidesPerGroup: 1,
+      spaceBetween: 30,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  } catch (error) {
+    console.error('Swiper initialization error:', error);
+  }
+});
+
+</script>
